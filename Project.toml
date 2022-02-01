@@ -3,6 +3,10 @@ uuid = "058b6acb-b1bf-4aee-ba91-e74c0ad83679"
 authors = ["Zhanibek <zhanibek.om@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
+
 [compat]
 julia = "1"
 
