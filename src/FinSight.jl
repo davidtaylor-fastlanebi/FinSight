@@ -1,6 +1,6 @@
 module FinSight
 using Roots: find_zero
-using Dates
+using Dates: DateTime, Day
 
 """
 Calculates the net present value of an investment by using a discount rate and a
