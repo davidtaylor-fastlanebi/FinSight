@@ -17,7 +17,8 @@ end
 # ╔═╡ ac99559c-880b-11ec-164b-ef9d96149fb9
 begin
 	import Pkg
-	Pkg.activate(".")
+	Pkg.activate("Project.toml")
+	Pkg.instantiate()
 end
 
 # ╔═╡ e5936aaa-59ec-48bf-91af-46f7bb3987c3
