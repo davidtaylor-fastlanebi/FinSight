@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.18.0
+# v0.18.1
 
 using Markdown
 using InteractiveUtils
@@ -26,19 +26,19 @@ end
 # ╔═╡ d7e8f31d-86e9-4832-878b-be2d925767dc
 begin
 	# initial purchase price of property $ per unit area
-	initial_investment = 1000
+	initial_investment = 1_000
 	
 	# rate
 	r = 0.07
 	
 	# Capital Expenditures 10% of gross income 
-	ci = 0.10 ± 0  # Could be zero
+	ci = 0.10  # Could be zero
 	
 	#Growth Rate 2%
-	g = 0.02 ± 0
+	g = 0.02
 	
 	# Expenses 35% of gross income
-	expense_ratio = 0.35 ± 0
+	expense_ratio = 0.35
 	
 	# Exit Capitalisation Rate 5%
 	y = 0.05
@@ -47,7 +47,7 @@ begin
 	year = [0,0,0, 0,0,0, 0,0,0, 0, 0,0]  
 	
 	# Potential Gross Income first year $100
-	pgi_fy = 100.0 ± 0
+	pgi_fy = 100.0
 
 	nothing
 end
@@ -55,10 +55,11 @@ end
 # ╔═╡ 454d71be-0ca1-4234-a736-8d1033a5d68d
 begin
 	# Vacancy 5.0% of gross income
-	# v_distr = TriangularDist(0.05, 0.08, 0.051) 
-
-	# Try Gener
-	v_distr = GeneralizedPareto(0.04, 0.01, 0.01) 
+	# v_distr = TriangularDist(0.0, 0.8, 0.05) 
+     v_distr =Truncated(InverseGamma(2,0.1), 0, 1) 
+	# v_distr = LogNormal(0,1)
+	# Try various types
+	# v_distr = GeneralizedPareto(0.04, 0.8, 0.01) 
 	v = Particles(2000, v_distr)
 		
 	plot(v_distr, title="Vacancy distribution (non-gaussian)", leg=false, )
@@ -102,16 +103,17 @@ end;
 
 # ╔═╡ 25391fc1-5a43-4dcd-b69b-ff77628dbb83
 # transpose the dataframe for presentation with columns as time periods
-nominal_cash_flows = DataFrame([[names(df)]; collect.(eachrow(df))], [:column; Symbol.(axes(df, 1))])
+nominal_cash_flows = DataFrame([[names(df)]; collect.(eachrow(df))], [:Period; Symbol.(axes(df, 1))])
 
 # ╔═╡ faa662b0-d0d7-4a8d-8328-5f324a0d7f3f
 net_present_value = npv(r, df.net_cash_flows)
 
 # ╔═╡ 931cdff5-fe89-4f8c-bb5c-033ed228fdc5
-density(net_present_value, ylab="relative prob", title="Net present value distribution", leg=false)
+
+	density(net_present_value, ylab="relative prob", title="Net present value distribution", leg=false)
 
 # ╔═╡ Cell order:
-# ╠═d6cfceae-779d-474d-a609-e1fe6fb1d276
+# ╟─d6cfceae-779d-474d-a609-e1fe6fb1d276
 # ╠═ea6b61fa-51d1-499a-884a-b7fba187d005
 # ╠═c2f43cb6-e226-4be6-b54c-96417ae953fa
 # ╠═d7e8f31d-86e9-4832-878b-be2d925767dc
